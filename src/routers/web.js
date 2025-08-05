@@ -4,6 +4,8 @@ const TestController = require("../apps/controllers/TestController");
 const AuthController = require("../apps/controllers/auth");
 const AdminController = require("../apps/controllers/admin");
 const ProductController = require("../apps/controllers/product");
+const UserController = require("../apps/controllers/user");
+const CategoryController = require("../apps/controllers/category");
 const TestMiddleware = require("../apps/middlewares/test");
 const AuthMiddleware = require("../apps/middlewares/auth");
 const UploadMiddleware = require("../apps/middlewares/upload");
@@ -57,39 +59,18 @@ router.get(
   ProductController.del
 );
 
-
-
-
 //User
 
-router.get("/admin/users", (req,res) =>{
-  res.send("/admin/users");
-});
-router.get("/admin/users/create", (req,res) =>{
-  res.send("/admin/users/create");
-});
-router.get("/admin/users/edit/:id", (req,res) =>{
-  res.send("/admin/users/edit/:id");
-});
-router.get("/admin/users/delete/:id", (req,res) =>{
-  res.send("/admin/users/delete/:id");
-});
+router.get("/admin/users", UserController.index);
+router.get("/admin/users/create", UserController.create);
+router.get("/admin/users/edit/:id", UserController.edit);
+router.get("/admin/users/delete/:id", UserController.del);
 
 //category
 
-router.get("/admin/categories", (req,res) =>{
-  res.send("/admin/categories");
-});
-router.get("/admin/categories/create", (req,res) =>{
-  res.send("/admin/categories/create");
-});
-router.get("/admin/categories/edit/:id", (req,res) =>{
-  res.send("/admin/categories/edit/:id");
-});
-router.get("/admin/categories/delete/:id", (req,res) =>{
-  res.send("/admin/categories/delete/:id");
-});
-
-  
+router.get("/admin/categories", CategoryController.index);
+router.get("/admin/categories/create", CategoryController.create);
+router.get("/admin/categories/edit/:id", CategoryController.edit);
+router.get("/admin/categories/delete/:id", CategoryController.del);
 
 module.exports = router;
