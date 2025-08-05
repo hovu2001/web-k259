@@ -8,10 +8,10 @@
         <li><a href="/admin/dashboard"><svg class="glyph stroked dashboard-dial">
                     <use xlink:href="#stroked-dashboard-dial"></use>
                 </svg> Dashboard</a></li>
-        <li><a href="thanhvien.html"><svg class="glyph stroked male user ">
+        <li><a href="/admin/users"><svg class="glyph stroked male user ">
                     <use xlink:href="#stroked-male-user" />
                 </svg>Quản lý thành viên</a></li>
-        <li><a href="category.html"><svg class="glyph stroked open folder">
+        <li><a href="/admin/categories"><svg class="glyph stroked open folder">
                     <use xlink:href="#stroked-open-folder" />
                 </svg>Quản lý danh mục</a></li>
         <li class="active"><a href="/admin/products"><svg class="glyph stroked bag">
@@ -29,3 +29,20 @@
     </ul>
 
 </div><!--/.sidebar-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const currentPath = window.location.pathname;
+    const menuLinks = document.querySelectorAll(".nav.menu li a");
+
+    menuLinks.forEach(link => {
+      // So sánh đường dẫn
+      if (link.getAttribute("href") === currentPath) {
+        // Xóa class 'active' khỏi tất cả các <li>
+        document.querySelectorAll(".nav.menu li").forEach(li => li.classList.remove("active"));
+
+        // Thêm class 'active' cho <li> chứa link phù hợp
+        link.parentElement.classList.add("active");
+      }
+    });
+  });
+</script>

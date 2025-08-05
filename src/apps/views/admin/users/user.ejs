@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -8,19 +8,21 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/datepicker3.css" rel="stylesheet">
 <link href="css/bootstrap-table.css" rel="stylesheet">
-<link href="css/styles.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet"> -->
 
 <!--Icons-->
-<script src="js/lumino.glyphs.js"></script>
+<!-- <script src="js/lumino.glyphs.js"></script> -->
 
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
 <script src="js/respond.min.js"></script>
 <![endif]-->
 
-</head>
-
-<body>
+<!-- </head> -->
+<%- include("../layout/head")%>
+    <%- include("../layout/header")%>
+        <%- include("../layout/sidebar")%>
+<!-- <body> -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -32,7 +34,7 @@
                         </button>
                         <a class="navbar-brand" href="#"><span>Vietpro</span>Shop</a>
                         <ul class="user-menu">
-                            <li class="dropdown pull-right">
+                  <li c          lass="dropdown pull-right">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Admin <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Hồ sơ</a></li>
@@ -45,7 +47,7 @@
                 </div><!-- /.container-fluid -->
             </nav>
 		
-	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	<!-- <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<form role="search">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search">
@@ -61,7 +63,7 @@
             <li><a href="setting.html"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"/></svg> Cấu hình</a></li>
         </ul>
 
-	</div><!--/.sidebar-->
+	</div>/.sidebar -->
 		
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
 		<div class="row">
@@ -99,26 +101,18 @@
 						    </tr>
                             </thead>
                             <tbody>
+                                <% for(let user of users )  {%>
                                 <tr>
-                                    <td style="">1</td>
-                                    <td style="">Admin</td>
-                                    <td style="">admin@gmail.com</td>
-                                    <td><span class="label label-danger">Admin</span></td>
+                                    <td style=""><%=user._id%></td>
+                                    <td style=""><%=user.full_name%></td>
+                                    <td style=""><%=user.email%></td>
+                                    <td><span class="label <%=user.role === 'admin' ? 'label-danger' :'label-success' %> "><%=user.role%></span></td>
                                     <td class="form-group">
-                                        <a href="thanhvien-edit.html" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+                                        <a href="thanhvien-edit.html" class="btn  btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
                                         <a href="/" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                                     </td>
                                 </tr>
-                                <tr>
-                                        <td style="">2</td>
-                                        <td style="">Nguyễn Văn A</td>
-                                        <td style="">nguyenvana@gmail.com</td>
-                                        <td><span class="label label-warning">Member</span></td>
-                                        <td class="form-group">
-                                            <a href="thanhvien-edit.html" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
-                                            <a href="/" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                                        </td>
-                                    </tr>
+                                <% }%>
                             </tbody>
 						</table>
                     </div>
@@ -141,6 +135,7 @@
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-table.js"></script>	
-</body>
-
-</html>
+<!-- </body> -->
+<!-- 
+</html> -->
+   <%- include("../layout/footer")%>
