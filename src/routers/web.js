@@ -63,6 +63,7 @@ router.get(
 
 router.get("/admin/users", UserController.index);
 router.get("/admin/users/create", UserController.create);
+router.post("/admin/users/store", UserController.store);
 router.get("/admin/users/edit/:id", UserController.edit);
 router.get("/admin/users/delete/:id", UserController.del);
 
@@ -70,6 +71,7 @@ router.get("/admin/users/delete/:id", UserController.del);
 
 router.get("/admin/categories", CategoryController.index);
 router.get("/admin/categories/create", CategoryController.create);
+router.post("/admin/categories/store", CategoryController.store);
 router.get("/admin/categories/edit/:id", CategoryController.edit);
 router.get("/admin/categories/delete/:id", CategoryController.del);
 
