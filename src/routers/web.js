@@ -65,6 +65,7 @@ router.get("/admin/users", UserController.index);
 router.get("/admin/users/create", UserController.create);
 router.post("/admin/users/store", UserController.store);
 router.get("/admin/users/edit/:id", UserController.edit);
+router.post("/admin/users/update/:id", UserController.update);
 router.get("/admin/users/delete/:id", UserController.del);
 
 //category
@@ -73,6 +74,7 @@ router.get("/admin/categories", CategoryController.index);
 router.get("/admin/categories/create", CategoryController.create);
 router.post("/admin/categories/store", CategoryController.store);
 router.get("/admin/categories/edit/:id", CategoryController.edit);
+router.post("/admin/categories/update/:id", CategoryController.update);
 router.get("/admin/categories/delete/:id", CategoryController.del);
 
 module.exports = router;

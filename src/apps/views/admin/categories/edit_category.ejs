@@ -21,11 +21,13 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="col-md-8">
-                            <div class="alert alert-danger">Danh mục đã tồn tại !</div>
-                        <form role="form" method="post">
+                          <% if (error) { %>
+                                 <div class="alert alert-danger"><%= error %></div>
+                          <% } %>
+                        <form action="/admin/categories/update/<%=category._id%>" role="form" method="post">
                             <div class="form-group">
                                 <label>Tên danh mục:</label>
-                                <input type="text" name="cat_name" required value="Danh mục 1" class="form-control" placeholder="Tên danh mục...">
+                                <input type="text" name="title" required value="<%=category.title%>" class="form-control" placeholder="Tên danh mục...">
                             </div>
                             <button type="submit" name="sbm" class="btn btn-primary">Cập nhật</button>
                             <button type="reset" class="btn btn-default">Làm mới</button>

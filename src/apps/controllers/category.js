@@ -43,9 +43,36 @@ exports.store = async (req, res) => {
   await CategoryModel(category).save();
   return res.redirect("/admin/categories");
 };
-exports.edit = (req, res) => {
-  return res.render("admin/categories/edit_category");
+exports.edit = async (req, res) => {
+  const { id } = req.params; 
+  const category = await CategoryModel.findById(id);
+  return res.render("admin/categories/edit_category", {category, error: null });
 };
-exports.del = (req, res) => {
-  return res.send("Delete category");
+exports.update = async (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+  const slugFromTitle = slug(title.trim());
+  const categoryExists = await CategoryModel.findOne({
+    slug: slugFromTitle,
+    _id: { $ne: id } 
+  });
+  if (categoryExists) {
+    const currentCategory = await CategoryModel.findById(id);
+    return res.render("admin/categories/edit_category", {
+      category: currentCategory,
+      error: "Danh mục đã tồn tại!"
+    });
+  }
+  const updatedCategory = {
+    title: title,
+    slug: slugFromTitle
+  };
+  await CategoryModel.updateOne({ _id: id }, { $set: updatedCategory });
+  return res.redirect("/admin/categories")
+};
+
+exports.del = async (req, res) => {
+  const {id} = req.params;
+  await CategoryModel.deleteOne({ _id: id})
+  return res.redirect("/admin/categories");
 };

@@ -51,9 +51,48 @@ exports.store = async (req, res) => {
   await UserModel.create({ full_name, email, password, role });
   return res.redirect("/admin/users");
 };
-exports.edit = (req, res) => {
-  return res.render("admin/users/edit_user");
+exports.edit = async (req, res) => {
+  const { id } = req.params;
+  const user = await UserModel.findById(id);
+  return res.render("admin/users/edit_user", { user, error: null });
 };
-exports.del = (req, res) => {
-  return res.send("Delete user");
+exports.update = async (req, res) => {
+  const { id } = req.params;
+  const { full_name, email, password, re_password, role } = req.body;
+
+  const user = await UserModel.findById(id);
+  if (!user) return res.status(404).send("Không tìm thấy người dùng");
+
+  // Kiểm tra email đã tồn tại ở user khác chưa
+  const emailExists = await UserModel.findOne({ email, _id: { $ne: id } });
+  if (emailExists) {
+    return res.render("admin/users/edit_user", {
+      user: { _id: id, full_name, email, role },
+      error: "Email đã tồn tại!",
+    });
+  }
+
+  if (password || re_password) {
+    if (password !== re_password) {
+      return res.render("admin/users/edit_user", {
+        user: { _id: id, full_name, email, role },
+        error: "Mật khẩu không khớp!",
+      });
+    }
+
+    user.password = password;
+  }
+
+  user.full_name = full_name;
+  user.email = email;
+  user.role = role;
+
+  await user.save();
+  return res.redirect("/admin/users");
+};
+
+exports.del = async (req, res) => {
+  const {id} = req.params;
+  const user = await UserModel.findByIdAndDelete(id);
+  return res.redirect("/admin/users");
 };
