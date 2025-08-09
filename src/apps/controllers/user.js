@@ -51,11 +51,13 @@ exports.store = async (req, res) => {
   await UserModel.create({ full_name, email, password, role });
   return res.redirect("/admin/users");
 };
+
 exports.edit = async (req, res) => {
   const { id } = req.params;
   const user = await UserModel.findById(id);
   return res.render("admin/users/edit_user", { user, error: null });
 };
+
 exports.update = async (req, res) => {
   const { id } = req.params;
   const { full_name, email, password, re_password, role } = req.body;

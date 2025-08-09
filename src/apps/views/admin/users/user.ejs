@@ -61,13 +61,13 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                  <% if(page> 1){%>
-                                <li class="page-item"><a class="page-link" href="/admin/users=<%=prev%>">&laquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="/admin/users?page=<%=prev%>">&laquo;</a></li>
                                  <% }%>
                                    <% for(let pageNumber of paginate){%>
                                 <li class="page-item  <%=pageNumber===page? 'active': ''%>"><a class="page-link" href="/admin/users?page=<%=pageNumber%>"><%=pageNumber%></a></li>
                                  <% }%>
                                   <% if(page < totalPages){%>
-                                <li class="page-item"><a class="page-link" href="/admin/users=<%=next%>">&raquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="/admin/users?page=<%=next%>">&raquo;</a></li>
                                   <% }%>  
                             </ul>
                         </nav>

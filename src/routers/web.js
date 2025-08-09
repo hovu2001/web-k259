@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 const TestController = require("../apps/controllers/TestController");
 const AuthController = require("../apps/controllers/auth");
 const AdminController = require("../apps/controllers/admin");
@@ -76,5 +77,24 @@ router.post("/admin/categories/store", CategoryController.store);
 router.get("/admin/categories/edit/:id", CategoryController.edit);
 router.post("/admin/categories/update/:id", CategoryController.update);
 router.get("/admin/categories/delete/:id", CategoryController.del);
+
+
+//gg
+// Bắt đầu đăng nhập Google
+router.get("/auth/google", passport.authenticate("google", {
+  scope: ["profile", "email"]
+}));
+
+// Xử lý callback sau khi Google xác thực
+router.get("/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/admin/login"
+  }),
+  (req, res) => {
+    // Thành công → chuyển về dashboard
+    req.session.email = req.user.email;
+    res.redirect("/admin/dashboard");
+  }
+);
 
 module.exports = router;
