@@ -5,11 +5,13 @@ const TestController = require("../apps/controllers/TestController");
 const AuthController = require("../apps/controllers/auth");
 const AdminController = require("../apps/controllers/admin");
 const ProductController = require("../apps/controllers/product");
+const CommentController = require("../apps/controllers/comment");
 const UserController = require("../apps/controllers/user");
 const CategoryController = require("../apps/controllers/category");
 const TestMiddleware = require("../apps/middlewares/test");
 const AuthMiddleware = require("../apps/middlewares/auth");
 const UploadMiddleware = require("../apps/middlewares/upload");
+
 
 router.get("/test1", TestController.test1);
 router.get("/test2", TestMiddleware.test, TestController.test2);
@@ -96,5 +98,26 @@ router.get("/auth/google/callback",
     res.redirect("/admin/dashboard");
   }
 );
+
+router.get("/auth/facebook",
+  passport.authenticate("facebook", { scope: ["email"] })
+);
+
+// Callback khi Facebook trả về
+router.get("/auth/facebook/callback",
+  passport.authenticate("facebook", { failureRedirect: "/admin/login" }),
+  (req, res) => {
+    req.session.email = req.user.email;
+    res.redirect("/admin/dashboard");
+  }
+);
+
+
+
+//comment
+router.get("/admin/comments", CommentController.index);
+router.post("/admin/comments/create", CommentController.create);
+router.get("/admin/comments/delete/:id", CommentController.del);
+
 
 module.exports = router;

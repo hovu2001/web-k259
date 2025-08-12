@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const app = express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/static", express.static(config.get("staticFolder")));
 app.set("views", config.get("viewsFolder"));
 app.set("view engine", config.get("viewEngine"));
