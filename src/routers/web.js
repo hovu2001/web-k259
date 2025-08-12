@@ -8,6 +8,7 @@ const ProductController = require("../apps/controllers/product");
 const CommentController = require("../apps/controllers/comment");
 const UserController = require("../apps/controllers/user");
 const CategoryController = require("../apps/controllers/category");
+const AdvertisementController = require("../apps/controllers/ad");
 const TestMiddleware = require("../apps/middlewares/test");
 const AuthMiddleware = require("../apps/middlewares/auth");
 const UploadMiddleware = require("../apps/middlewares/upload");
@@ -118,6 +119,23 @@ router.get("/auth/facebook/callback",
 router.get("/admin/comments", CommentController.index);
 router.post("/admin/comments/create", CommentController.create);
 router.get("/admin/comments/delete/:id", CommentController.del);
+
+//advertisement
+router.get("/admin/advertisements", AdvertisementController.index);
+router.get("/admin/advertisements/create", AdvertisementController.create);
+router.post(
+  "/admin/advertisements/store",
+  UploadMiddleware.single("image"), 
+  AdvertisementController.store
+);
+router.get("/admin/advertisements/edit/:id", AdvertisementController.edit);
+router.post(
+  "/admin/advertisements/update/:id",
+  UploadMiddleware.single("image"), 
+  AdvertisementController.update
+);
+router.get("/admin/advertisements/delete/:id", AdvertisementController.del);
+router.post("/advertisements/:id/click", AdvertisementController.recordClick);
 
 
 module.exports = router;
