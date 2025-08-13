@@ -6,9 +6,12 @@ const config = require("config");
 require("../../config/passport")
 const bodyParser = require("body-parser");
 const app = express();
+const loadConfig = require('../apps/middlewares/loadConfig')
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(loadConfig);
 app.use("/static", express.static(config.get("staticFolder")));
 app.set("views", config.get("viewsFolder"));
 app.set("view engine", config.get("viewEngine"));

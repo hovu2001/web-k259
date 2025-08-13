@@ -9,10 +9,11 @@ const CommentController = require("../apps/controllers/comment");
 const UserController = require("../apps/controllers/user");
 const CategoryController = require("../apps/controllers/category");
 const AdvertisementController = require("../apps/controllers/ad");
+const ConfigController = require("../apps/controllers/config");
 const TestMiddleware = require("../apps/middlewares/test");
 const AuthMiddleware = require("../apps/middlewares/auth");
 const UploadMiddleware = require("../apps/middlewares/upload");
-
+const multer = require("multer");
 
 router.get("/test1", TestController.test1);
 router.get("/test2", TestMiddleware.test, TestController.test2);
@@ -136,6 +137,29 @@ router.post(
 );
 router.get("/admin/advertisements/delete/:id", AdvertisementController.del);
 router.post("/advertisements/:id/click", AdvertisementController.recordClick);
+
+
+
+// config
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'src/public/upload/');
+  },
+  filename: function (req, file, cb) {
+    // Tạo tên file tránh trùng lặp, ví dụ: logo-123456789.png
+    const ext = file.originalname.split('.').pop();
+    cb(null, 'logo-' + Date.now() + '.' + ext);
+  }
+});
+const upload = multer({ storage: storage });
+
+router.get('/admin/config', ConfigController.getConfig);
+router.get('/admin/config/edit', ConfigController.edit);
+router.post('/admin/config', upload.single('logo'), ConfigController.postConfig);
+
+
+
+
 
 
 module.exports = router;

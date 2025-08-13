@@ -1,0 +1,52 @@
+<%- include("../layout/head")%>
+<%- include("../layout/header"), { config: config }%>
+<%- include("../layout/sidebar")%>
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><svg class="glyph stroked home">
+                        <use xlink:href="#stroked-home"></use>
+                    </svg></a></li>
+            <li class="active">Quản lý cấu hình Footer & Logo</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Cấu hình Footer & Logo</h1>
+        </div>
+    </div><!--/.row-->
+
+    <form action="/admin/config" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Logo hiện tại:</label><br>
+            <p>Logo URL: <%= config.logoUrl %></p>
+
+           <img src="<%= config.logoUrl ? ('/static' + config.logoUrl) : '/static/upload/logodefault.jpg' %>" alt="Logo" style="max-height: 100px; margin-bottom: 10px;" />
+            <!-- <input type="file" name="logo" accept="image/*" class="form-control" /> -->
+        </div>
+
+        <div class="form-group">
+            <label>Địa chỉ footer:</label>
+            <input type="text" name="footerAddress" class="form-control" value="<%= config.footerAddress || '' %>" required disabled/>
+        </div>
+
+        <div class="form-group">
+            <label>Số điện thoại footer:</label>
+            <input type="text" name="footerPhone" class="form-control" value="<%= config.footerPhone || '' %>" required  disabled/>
+        </div>
+
+        <div class="form-group">
+            <label>Bản quyền footer:</label>
+            <input type="text" name="footerCopyright" class="form-control" value="<%= config.footerCopyright || '' %>" required disabled />
+        </div>
+
+       <a href="/admin/config/edit" class="btn btn-primary">Sửa cấu hình</a>
+
+    </form>
+</div> <!--/.main-->
+
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<%- include("../layout/footer"), { config: config } %>

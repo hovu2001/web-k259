@@ -12,7 +12,7 @@
         callbackURL: "http://localhost:8080/auth/google/callback",
       },
       async (accessToken, refreshToken, profile, done) => {
-    // ❌ Không lưu vào DB nữa
+    //  Không lưu vào DB 
     const tempUser = {
       id: profile.id,
       name: profile.displayName,
@@ -34,7 +34,7 @@ passport.use(
       profileFields: ["id", "displayName", "emails", "photos"] // Lấy thêm email và avatar
     },
     async (accessToken, refreshToken, profile, done) => {
-      // ❌ Không lưu DB, chỉ trả về thông tin user
+      //  Không lưu DB, chỉ trả về thông tin user
       const tempUser = {
         id: profile.id,
         name: profile.displayName,

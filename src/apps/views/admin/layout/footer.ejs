@@ -1,3 +1,35 @@
+<style>
+    footer.admin-footer {
+        background: #1e1e1e;
+        color: #ccc;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 14px;
+        margin-top: auto;
+    }
+
+    footer.admin-footer p {
+        margin: 5px 0;
+    }
+
+    /* Đảm bảo footer luôn ở cuối màn hình */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+    .main {
+        flex: 1;
+    }
+</style>
+
+<footer class="admin-footer">
+    <p>📍 <%=config.footerAddress%></p>                     <p>📞 <%=config.footerPhone%></p>
+    <p>© <%= new Date().getFullYear() %> <%=config.footerCopyright%></p>
+</footer>
+
 </body>
+
 
 </html>
